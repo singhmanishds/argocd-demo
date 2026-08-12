@@ -1,4 +1,7 @@
 redis-ha:
+  enabled: false
+
+redis:
   enabled: true
 
 controller:
