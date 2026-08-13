@@ -1,4 +1,4 @@
-name: ci
+name: cicd
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  docker:
+  ci:
     runs-on: self-hosted
     steps:
       -
@@ -34,3 +34,17 @@ jobs:
         with:
           push: true
           tags: sidmanish18/python-app:${{ steps.vars.outputs.sha_short }}
+  
+  cd:
+    runs-on: self-hosted
+    needs: ci
+    steps:
+      -
+        name: Argo CD app sync
+        shell: bash
+        run: |
+          argocd login argocd-server.argocd \
+          --insecure \
+          --grpc-web --username ${{ vars.ARGOCD_SERVER }} \
+          --password ${{ secrets.ARGOCD_AUTH_TOKEN }}
+          argocd app sync python-app
