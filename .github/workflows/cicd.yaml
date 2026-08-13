@@ -43,14 +43,14 @@ jobs:
         name: Install Argo CD
         shell: bash
         run: |
-          curl -kssL -o /usr/local/bin/argocd https://argocd-server.argocd//download/argocd-linux-amd64
+          curl -ssL -o /usr/local/bin/argocd http://argocd-server.argocd/download/argocd-linux-amd64
           chmod +x /usr/local/bin/argocd
       -
         name: Argo CD app sync
         shell: bash
         run: |
-          argocd login argocd-server.argocd \
-          --insecure \
+          argocd login argocd-server.argocd:80 \
+          --plaintext \
           --grpc-web --username ${{ vars.ARGOCD_SERVER }} \
           --password ${{ secrets.ARGOCD_AUTH_TOKEN }}
           argocd app sync python-app
