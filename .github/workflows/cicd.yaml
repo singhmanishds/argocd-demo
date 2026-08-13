@@ -44,7 +44,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p "$HOME/bin"
-          curl -ssL -o "$HOME/bin/argocd" http://argocd-server.argocd/download/argocd-linux-amd64
+          curl -ssL -o "$HOME/bin/argocd" https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
           chmod +x "$HOME/bin/argocd"
           echo "$HOME/bin" >> "$GITHUB_PATH"
       -
@@ -53,6 +53,6 @@ jobs:
         run: |
           argocd login argocd-server.argocd:80 \
           --plaintext \
-          --grpc-web --username ${{ vars.ARGOCD_SERVER }} \
+          --grpc-web --username admin \
           --password ${{ secrets.ARGOCD_AUTH_TOKEN }}
           argocd app sync python-app
