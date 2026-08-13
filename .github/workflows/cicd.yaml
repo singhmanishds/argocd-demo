@@ -43,8 +43,10 @@ jobs:
         name: Install Argo CD
         shell: bash
         run: |
-          curl -ssL -o /usr/local/bin/argocd http://argocd-server.argocd/download/argocd-linux-amd64
-          chmod +x /usr/local/bin/argocd
+          mkdir -p "$HOME/bin"
+          curl -ssL -o "$HOME/bin/argocd" http://argocd-server.argocd/download/argocd-linux-amd64
+          chmod +x "$HOME/bin/argocd"
+          echo "$HOME/bin" >> "$GITHUB_PATH"
       -
         name: Argo CD app sync
         shell: bash
