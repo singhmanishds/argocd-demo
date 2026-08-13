@@ -45,7 +45,7 @@ jobs:
         run: |
           curl -kssL -o /usr/local/bin/argocd https://argocd-server.argocd//download/argocd-linux-amd64
           chmod +x /usr/local/bin/argocd
-
+      -
         name: Argo CD app sync
         shell: bash
         run: |
