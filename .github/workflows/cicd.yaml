@@ -55,4 +55,4 @@ jobs:
           --plaintext \
           --grpc-web --username admin \
           --password ${{ secrets.ARGOCD_AUTH_TOKEN }}
-          argocd app sync python-app
+          argocd app sync argocd-demo9090
